@@ -1,0 +1,3 @@
+".\Objects\main.obj" 
+TO ".\Objects\ClockUsingLoop" 
+PRINT(".\Listings\ClockUsingLoop.m51")
