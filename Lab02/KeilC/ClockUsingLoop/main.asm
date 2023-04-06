@@ -21,7 +21,6 @@ delay_60ms_Loop:
 RET
 Setup_Clock:
 MOV R6, #250
-MOV R7, #6
 CJNE R2, #2d,Init_Clock
 CJNE R3, #4d,Init_Clock
 RET
@@ -60,8 +59,6 @@ Init_Clock:
 		MOV P2, A
 		LCAlL delay_60ms_Loop
 	DJNZ R6, Init_Clock
-	MOV R6, #50
-	DJNZ R7, Init_Clock
 	INC R5
 	CJNE R5,#10, Setup_Clock
 	MOV R5, #0

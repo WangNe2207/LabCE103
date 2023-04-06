@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  MAIN                                                                 04/05/2023 23:03:49 PAGE     1
+A51 MACRO ASSEMBLER  MAIN                                                                 04/06/2023 08:30:34 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -14,7 +14,7 @@ LOC  OBJ            LINE     SOURCE
 4008 8090                    
                        3     ;Thu tu luu tru cua cac thanh ghi {R2}{R3}:{R4}{R5}
 0000                   4     ORG 0000H
-0000 020097            5     LJMP main
+0000 020091            5     LJMP main
 0030                   6     ORG 30H
 0030                   7     delay_60ms_Loop:
 0030 7F3C              8             MOV R7, #60
@@ -33,76 +33,73 @@ LOC  OBJ            LINE     SOURCE
 0040 22               21     RET
 0041                  22     Setup_Clock:
 0041 7EFA             23     MOV R6, #250
-0043 7F06             24     MOV R7, #6
-0045 BA0204           25     CJNE R2, #2d,Init_Clock
-0048 BB0401           26     CJNE R3, #4d,Init_Clock
-004B 22               27     RET
-004C                  28     Init_Clock:
-004C 904000           29             MOV DPTR, #4000H
-004F                  30         HienThiChucGio:
-004F 75B000           31             MOV P3, #00000000b
-0052                  32             HienThiChucGio_1:
-0052 E4               33                     CLR A
-0053 EA               34                     MOV A,R2
-0054 93               35                     MOVC A,@A+DPTR
-0055 F5A0             36                     MOV P2, A
-0057 120030           37                     LCAlL delay_60ms_Loop
-005A                  38         HienThiDonViGio:
-005A 75B001           39             MOV P3, #00000001b
-005D                  40             HienThiDonViGio_1:
-005D E4               41                     CLR A
-005E EB               42                     MOV A,R3
-005F 93               43                     MOVC A,@A+DPTR
-0060 F5A0             44                     MOV P2, A
-0062 120030           45                     LCAlL delay_60ms_Loop
-0065                  46         HienThiChucPhut:
-0065 75B002           47             MOV P3, #00000010b
-0068                  48             HienThiChucPhut_1:
-0068 E4               49                     CLR A
-0069 EC               50                     MOV A,R4
-006A 93               51                     MOVC A,@A+DPTR
-006B F5A0             52                     MOV P2, A
-006D 120030           53                     LCAlL delay_60ms_Loop
-0070                  54         HienThiDonViPhut:
-0070 75B003           55             MOV P3, #00000011b
-A51 MACRO ASSEMBLER  MAIN                                                                 04/05/2023 23:03:49 PAGE     2
+0043 BA0204           24     CJNE R2, #2d,Init_Clock
+0046 BB0401           25     CJNE R3, #4d,Init_Clock
+0049 22               26     RET
+004A                  27     Init_Clock:
+004A 904000           28             MOV DPTR, #4000H
+004D                  29         HienThiChucGio:
+004D 75B000           30             MOV P3, #00000000b
+0050                  31             HienThiChucGio_1:
+0050 E4               32                     CLR A
+0051 EA               33                     MOV A,R2
+0052 93               34                     MOVC A,@A+DPTR
+0053 F5A0             35                     MOV P2, A
+0055 120030           36                     LCAlL delay_60ms_Loop
+0058                  37         HienThiDonViGio:
+0058 75B001           38             MOV P3, #00000001b
+005B                  39             HienThiDonViGio_1:
+005B E4               40                     CLR A
+005C EB               41                     MOV A,R3
+005D 93               42                     MOVC A,@A+DPTR
+005E F5A0             43                     MOV P2, A
+0060 120030           44                     LCAlL delay_60ms_Loop
+0063                  45         HienThiChucPhut:
+0063 75B002           46             MOV P3, #00000010b
+0066                  47             HienThiChucPhut_1:
+0066 E4               48                     CLR A
+0067 EC               49                     MOV A,R4
+0068 93               50                     MOVC A,@A+DPTR
+0069 F5A0             51                     MOV P2, A
+006B 120030           52                     LCAlL delay_60ms_Loop
+006E                  53         HienThiDonViPhut:
+006E 75B003           54             MOV P3, #00000011b
+0071                  55             HienThiDonViPhut_1:
+A51 MACRO ASSEMBLER  MAIN                                                                 04/06/2023 08:30:34 PAGE     2
 
-0073                  56             HienThiDonViPhut_1:
-0073 E4               57                     CLR A
-0074 ED               58                     MOV A,R5
-0075 93               59                     MOVC A,@A+DPTR
-0076 F5A0             60                     MOV P2, A
-0078 120030           61                     LCAlL delay_60ms_Loop
-007B DECF             62             DJNZ R6, Init_Clock
-007D 7E32             63             MOV R6, #50
-007F DFCB             64             DJNZ R7, Init_Clock
-0081 0D               65             INC R5
-0082 BD0ABC           66             CJNE R5,#10, Setup_Clock
-0085 7D00             67             MOV R5, #0
-0087 0C               68             INC R4
-0088 BC06B6           69             CJNE R4,#6, Setup_Clock
-008B 7C00             70             MOV R4, #0
-008D 0B               71             INC R3
-008E BB0AB0           72             CJNE R3,#10, Setup_Clock
-0091 7B00             73             MOV R3, #0
-0093 0A               74             INC R2
-0094 80AB             75             JMP Setup_Clock
-0096 22               76     RET
-0097                  77     main:      
-0097 7D00             78                MOV R5,#0
-0099 7C03             79                MOV R4,#3
-009B 7B03             80                MOV R3,#3
-009D 7A02             81                MOV R2,#2
-009F                  82                Loop:
-009F 120041           83                             LCALL Setup_Clock
-00A2 120030           84                             LCALL delay_60ms_Loop
-00A5 7D00             85                         MOV R5,#0
-00A7 7C00             86                             MOV R4,#0
-00A9 7B00             87                             MOV R3,#0
-00AB 7A00             88                             MOV R2,#0
-00AD 80F0             89                     JMP Loop
-                      90     END
-A51 MACRO ASSEMBLER  MAIN                                                                 04/05/2023 23:03:49 PAGE     3
+0071 E4               56                     CLR A
+0072 ED               57                     MOV A,R5
+0073 93               58                     MOVC A,@A+DPTR
+0074 F5A0             59                     MOV P2, A
+0076 120030           60                     LCAlL delay_60ms_Loop
+0079 DECF             61             DJNZ R6, Init_Clock
+007B 0D               62             INC R5
+007C BD0AC2           63             CJNE R5,#10, Setup_Clock
+007F 7D00             64             MOV R5, #0
+0081 0C               65             INC R4
+0082 BC06BC           66             CJNE R4,#6, Setup_Clock
+0085 7C00             67             MOV R4, #0
+0087 0B               68             INC R3
+0088 BB0AB6           69             CJNE R3,#10, Setup_Clock
+008B 7B00             70             MOV R3, #0
+008D 0A               71             INC R2
+008E 80B1             72             JMP Setup_Clock
+0090 22               73     RET
+0091                  74     main:      
+0091 7D00             75                MOV R5,#0
+0093 7C03             76                MOV R4,#3
+0095 7B03             77                MOV R3,#3
+0097 7A02             78                MOV R2,#2
+0099                  79                Loop:
+0099 120041           80                             LCALL Setup_Clock
+009C 120030           81                             LCALL delay_60ms_Loop
+009F 7D00             82                         MOV R5,#0
+00A1 7C00             83                             MOV R4,#0
+00A3 7B00             84                             MOV R3,#0
+00A5 7A00             85                             MOV R2,#0
+00A7 80F0             86                     JMP Loop
+                      87     END
+A51 MACRO ASSEMBLER  MAIN                                                                 04/06/2023 08:30:34 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -112,19 +109,19 @@ N A M E             T Y P E  V A L U E   ATTRIBUTES
 
 DELAY. . . . . . .  C ADDR   0037H   A   
 DELAY_60MS_LOOP. .  C ADDR   0030H   A   
-HIENTHICHUCGIO . .  C ADDR   004FH   A   
-HIENTHICHUCGIO_1 .  C ADDR   0052H   A   
-HIENTHICHUCPHUT. .  C ADDR   0065H   A   
-HIENTHICHUCPHUT_1.  C ADDR   0068H   A   
-HIENTHIDONVIGIO. .  C ADDR   005AH   A   
-HIENTHIDONVIGIO_1.  C ADDR   005DH   A   
-HIENTHIDONVIPHUT .  C ADDR   0070H   A   
-HIENTHIDONVIPHUT_1  C ADDR   0073H   A   
-INIT_CLOCK . . . .  C ADDR   004CH   A   
-LOOP . . . . . . .  C ADDR   009FH   A   
+HIENTHICHUCGIO . .  C ADDR   004DH   A   
+HIENTHICHUCGIO_1 .  C ADDR   0050H   A   
+HIENTHICHUCPHUT. .  C ADDR   0063H   A   
+HIENTHICHUCPHUT_1.  C ADDR   0066H   A   
+HIENTHIDONVIGIO. .  C ADDR   0058H   A   
+HIENTHIDONVIGIO_1.  C ADDR   005BH   A   
+HIENTHIDONVIPHUT .  C ADDR   006EH   A   
+HIENTHIDONVIPHUT_1  C ADDR   0071H   A   
+INIT_CLOCK . . . .  C ADDR   004AH   A   
+LOOP . . . . . . .  C ADDR   0099H   A   
 LOOP1. . . . . . .  C ADDR   003BH   A   
 LOOP2. . . . . . .  C ADDR   003DH   A   
-MAIN . . . . . . .  C ADDR   0097H   A   
+MAIN . . . . . . .  C ADDR   0091H   A   
 P2 . . . . . . . .  D ADDR   00A0H   A   
 P3 . . . . . . . .  D ADDR   00B0H   A   
 SETUP_CLOCK. . . .  C ADDR   0041H   A   

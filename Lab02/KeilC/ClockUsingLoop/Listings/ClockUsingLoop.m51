@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    04/05/2023  23:03:49  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    04/06/2023  08:30:34  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
@@ -31,19 +31,19 @@ SYMBOL TABLE OF MODULE:  .\Objects\ClockUsingLoop (MAIN)
   -------         MODULE        MAIN
   C:0037H         SYMBOL        DELAY
   C:0030H         SYMBOL        DELAY_60MS_LOOP
-  C:004FH         SYMBOL        HIENTHICHUCGIO
-  C:0052H         SYMBOL        HIENTHICHUCGIO_1
-  C:0065H         SYMBOL        HIENTHICHUCPHUT
-  C:0068H         SYMBOL        HIENTHICHUCPHUT_1
-  C:005AH         SYMBOL        HIENTHIDONVIGIO
-  C:005DH         SYMBOL        HIENTHIDONVIGIO_1
-  C:0070H         SYMBOL        HIENTHIDONVIPHUT
-  C:0073H         SYMBOL        HIENTHIDONVIPHUT_1
-  C:004CH         SYMBOL        INIT_CLOCK
-  C:009FH         SYMBOL        LOOP
+  C:004DH         SYMBOL        HIENTHICHUCGIO
+  C:0050H         SYMBOL        HIENTHICHUCGIO_1
+  C:0063H         SYMBOL        HIENTHICHUCPHUT
+  C:0066H         SYMBOL        HIENTHICHUCPHUT_1
+  C:0058H         SYMBOL        HIENTHIDONVIGIO
+  C:005BH         SYMBOL        HIENTHIDONVIGIO_1
+  C:006EH         SYMBOL        HIENTHIDONVIPHUT
+  C:0071H         SYMBOL        HIENTHIDONVIPHUT_1
+  C:004AH         SYMBOL        INIT_CLOCK
+  C:0099H         SYMBOL        LOOP
   C:003BH         SYMBOL        LOOP1
   C:003DH         SYMBOL        LOOP2
-  C:0097H         SYMBOL        MAIN
+  C:0091H         SYMBOL        MAIN
   D:00A0H         SYMBOL        P2
   D:00B0H         SYMBOL        P3
   C:0041H         SYMBOL        SETUP_CLOCK
@@ -59,41 +59,41 @@ SYMBOL TABLE OF MODULE:  .\Objects\ClockUsingLoop (MAIN)
   C:003DH         LINE#         19
   C:003FH         LINE#         20
   C:0040H         LINE#         21
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/05/2023  23:03:49  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/06/2023  08:30:34  PAGE 2
 
 
   C:0041H         LINE#         23
   C:0043H         LINE#         24
-  C:0045H         LINE#         25
-  C:0048H         LINE#         26
-  C:004BH         LINE#         27
-  C:004CH         LINE#         29
-  C:004FH         LINE#         31
-  C:0052H         LINE#         33
-  C:0053H         LINE#         34
-  C:0054H         LINE#         35
+  C:0046H         LINE#         25
+  C:0049H         LINE#         26
+  C:004AH         LINE#         28
+  C:004DH         LINE#         30
+  C:0050H         LINE#         32
+  C:0051H         LINE#         33
+  C:0052H         LINE#         34
+  C:0053H         LINE#         35
   C:0055H         LINE#         36
-  C:0057H         LINE#         37
-  C:005AH         LINE#         39
-  C:005DH         LINE#         41
-  C:005EH         LINE#         42
-  C:005FH         LINE#         43
+  C:0058H         LINE#         38
+  C:005BH         LINE#         40
+  C:005CH         LINE#         41
+  C:005DH         LINE#         42
+  C:005EH         LINE#         43
   C:0060H         LINE#         44
-  C:0062H         LINE#         45
-  C:0065H         LINE#         47
-  C:0068H         LINE#         49
-  C:0069H         LINE#         50
-  C:006AH         LINE#         51
+  C:0063H         LINE#         46
+  C:0066H         LINE#         48
+  C:0067H         LINE#         49
+  C:0068H         LINE#         50
+  C:0069H         LINE#         51
   C:006BH         LINE#         52
-  C:006DH         LINE#         53
-  C:0070H         LINE#         55
-  C:0073H         LINE#         57
-  C:0074H         LINE#         58
-  C:0075H         LINE#         59
+  C:006EH         LINE#         54
+  C:0071H         LINE#         56
+  C:0072H         LINE#         57
+  C:0073H         LINE#         58
+  C:0074H         LINE#         59
   C:0076H         LINE#         60
-  C:0078H         LINE#         61
+  C:0079H         LINE#         61
   C:007BH         LINE#         62
-  C:007DH         LINE#         63
+  C:007CH         LINE#         63
   C:007FH         LINE#         64
   C:0081H         LINE#         65
   C:0082H         LINE#         66
@@ -103,28 +103,25 @@ SYMBOL TABLE OF MODULE:  .\Objects\ClockUsingLoop (MAIN)
   C:008BH         LINE#         70
   C:008DH         LINE#         71
   C:008EH         LINE#         72
-  C:0091H         LINE#         73
-  C:0093H         LINE#         74
-  C:0094H         LINE#         75
-  C:0096H         LINE#         76
+  C:0090H         LINE#         73
+  C:0091H         LINE#         75
+  C:0093H         LINE#         76
+  C:0095H         LINE#         77
   C:0097H         LINE#         78
-  C:0099H         LINE#         79
-  C:009BH         LINE#         80
-  C:009DH         LINE#         81
-  C:009FH         LINE#         83
-  C:00A2H         LINE#         84
+  C:0099H         LINE#         80
+  C:009CH         LINE#         81
+  C:009FH         LINE#         82
+  C:00A1H         LINE#         83
+  C:00A3H         LINE#         84
   C:00A5H         LINE#         85
   C:00A7H         LINE#         86
-  C:00A9H         LINE#         87
-  C:00ABH         LINE#         88
-  C:00ADH         LINE#         89
   -------         ENDMOD        MAIN
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/05/2023  23:03:49  PAGE 3
-
-
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 008CH BYTE ( 6%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0086H BYTE ( 6%) *
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/06/2023  08:30:34  PAGE 3
+
+
 ******************************************************************************
 
 Program Size: data=8.0 xdata=0 code=16394
