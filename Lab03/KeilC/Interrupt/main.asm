@@ -2,6 +2,8 @@ org 00h
 ljmp main
 org 0003H
 ljmp pause
+org 0013h
+ljmp reset
 Cong1:
 	lcall Delay1ms
 	jnb P1.0, $
@@ -48,6 +50,7 @@ reset:
 	mov R4, #0
 	mov R3, #0
 	mov R2, #0
+reti
 dem:
 	mov P3, #8Fh
 	mov P2, R5

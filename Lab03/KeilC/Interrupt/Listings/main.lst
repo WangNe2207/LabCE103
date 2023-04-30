@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  MAIN                                                                 04/30/2023 10:40:59 PAGE     1
+A51 MACRO ASSEMBLER  MAIN                                                                 04/30/2023 14:25:10 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -9,106 +9,109 @@ ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE main.asm SET(SMALL) DEBUG PRINT
 LOC  OBJ            LINE     SOURCE
 
 0000                   1     org 00h
-0000 02009D            2     ljmp main
+0000 0200AE            2     ljmp main
 0003                   3     org 0003H
-0003 020048            4     ljmp pause
-0006                   5     Cong1:
-0006 120035            6             lcall Delay1ms
-0009 3090FD            7             jnb P1.0, $
-000C 0B                8             inc R3
-000D BB0A49            9             cjne R3, #10, dem
-0010 7B00             10             mov R3, #0
-0012 0A               11             inc R2
-0013 22               12     ret
-0014                  13     Tru1:
-0014 120035           14             lcall Delay1ms
-0017 3091FD           15             jnb P1.1, $
-001A 1B               16             dec R3
-001B BB003B           17             cjne R3, #0, dem
-001E 7B09             18             mov R3, #9
-0020 1A               19             dec R2
-0021 22               20     ret
-0022                  21     Delay2_49ms:
-0022 758901           22             mov TMOD, #01H
-0025 758CF7           23             mov TH0, #0F7H
-0028 758A09           24             mov TL0, #09H
-002B D28C             25             setb TR0
-002D 308DFD           26             jnb TF0, $
-0030 C28D             27             clr TF0
-0032 C28C             28             clr TR0
-0034 22               29     ret
-0035                  30     Delay1ms:
-0035 758901           31             mov TMOD, #01H
-0038 758CFC           32             mov TH0, #0FCH
-003B 758A67           33             mov TL0, #67H
-003E D28C             34             setb TR0
-0040 308DFD           35             jnb TF0, $
-0043 C28D             36             clr TF0
-0045 C28C             37             clr TR0
-0047 22               38     ret
-0048                  39     pause:
-0048 0E               40             inc R6
-0049 BE0202           41             cjne R6, #2, out
-004C 7E00             42             mov R6, #0
-004E                  43             out:
-004E 32               44     reti
-004F                  45     reset:
-004F 7E00             46             mov R6, #0
-0051 7D00             47             mov R5, #0
-0053 7C00             48             mov R4, #0
-0055 7B00             49             mov R3, #0
-0057 7A00             50             mov R2, #0
-0059                  51     dem:
-0059 75B08F           52             mov P3, #8Fh
-005C 8DA0             53             mov P2, R5
-005E 120022           54             lcall Delay2_49ms
-0061 75B04F           55             mov P3, #4Fh
-0064 8CA0             56             mov P2, R4
-0066 120022           57             lcall Delay2_49ms
-A51 MACRO ASSEMBLER  MAIN                                                                 04/30/2023 10:40:59 PAGE     2
+0003 020058            4     ljmp pause
+0013                   5     org 0013h
+0013 02005F            6     ljmp reset
+0016                   7     Cong1:
+0016 120045            8             lcall Delay1ms
+0019 3090FD            9             jnb P1.0, $
+001C 0B               10             inc R3
+001D BB0A4A           11             cjne R3, #10, dem
+0020 7B00             12             mov R3, #0
+0022 0A               13             inc R2
+0023 22               14     ret
+0024                  15     Tru1:
+0024 120045           16             lcall Delay1ms
+0027 3091FD           17             jnb P1.1, $
+002A 1B               18             dec R3
+002B BB003C           19             cjne R3, #0, dem
+002E 7B09             20             mov R3, #9
+0030 1A               21             dec R2
+0031 22               22     ret
+0032                  23     Delay2_49ms:
+0032 758901           24             mov TMOD, #01H
+0035 758CF7           25             mov TH0, #0F7H
+0038 758A09           26             mov TL0, #09H
+003B D28C             27             setb TR0
+003D 308DFD           28             jnb TF0, $
+0040 C28D             29             clr TF0
+0042 C28C             30             clr TR0
+0044 22               31     ret
+0045                  32     Delay1ms:
+0045 758901           33             mov TMOD, #01H
+0048 758CFC           34             mov TH0, #0FCH
+004B 758A67           35             mov TL0, #67H
+004E D28C             36             setb TR0
+0050 308DFD           37             jnb TF0, $
+0053 C28D             38             clr TF0
+0055 C28C             39             clr TR0
+0057 22               40     ret
+0058                  41     pause:
+0058 0E               42             inc R6
+0059 BE0202           43             cjne R6, #2, out
+005C 7E00             44             mov R6, #0
+005E                  45             out:
+005E 32               46     reti
+005F                  47     reset:
+005F 7E00             48             mov R6, #0
+0061 7D00             49             mov R5, #0
+0063 7C00             50             mov R4, #0
+0065 7B00             51             mov R3, #0
+0067 7A00             52             mov R2, #0
+0069 32               53     reti
+006A                  54     dem:
+006A 75B08F           55             mov P3, #8Fh
+006D 8DA0             56             mov P2, R5
+006F 120032           57             lcall Delay2_49ms
+A51 MACRO ASSEMBLER  MAIN                                                                 04/30/2023 14:25:10 PAGE     2
 
-0069 75B02F           58             mov P3, #2Fh
-006C 8BA0             59             mov P2, R3
-006E 120022           60             lcall Delay2_49ms
-0071 75B01F           61             mov P3, #1Fh
-0074 8AA0             62             mov P2, R2
-0076 120022           63             lcall Delay2_49ms
-0079 30908A           64             jnb P1.0, Cong1
-007C 309195           65             jnb P1.1, Tru1
-007F BE0102           66             cjne R6, #1, up
-0082 80D5             67     jmp dem
-0084                  68     up:
-0084 0D               69             inc R5
-0085 BD0AD1           70             cjne R5, #10, dem
-0088 7D00             71             mov R5, #0
-008A 0C               72             inc R4
-008B BC0ACB           73             cjne R4, #10, dem
-008E 7C00             74             mov R4, #0
-0090 0B               75             inc R3
-0091 BB0AC5           76             cjne R3, #10,dem
-0094 7B00             77             mov R3, #0
-0096 0A               78             inc R2
-0097 BA0ABF           79             cjne R2, #10, dem
-009A 7A00             80             mov R2, #0
-009C 22               81     ret
-009D                  82     main:
-009D 75A885           83             mov IE, #85h
-00A0 D28A             84             setb IT1
-00A2 D288             85             setb IT0
-                      86             
-00A4 7E00             87             mov R6, #0
-00A6 7D00             88             mov R5, #0
-00A8 7C00             89             mov R4, #0
-00AA 7B00             90             mov R3, #0
-00AC 7A00             91             mov R2, #0
-                      92             
-00AE                  93             loop:
-00AE 120059           94                     lcall dem
-00B1 80FB             95             sjmp loop
-                      96             
-                      97     end
+0072 75B04F           58             mov P3, #4Fh
+0075 8CA0             59             mov P2, R4
+0077 120032           60             lcall Delay2_49ms
+007A 75B02F           61             mov P3, #2Fh
+007D 8BA0             62             mov P2, R3
+007F 120032           63             lcall Delay2_49ms
+0082 75B01F           64             mov P3, #1Fh
+0085 8AA0             65             mov P2, R2
+0087 120032           66             lcall Delay2_49ms
+008A 309089           67             jnb P1.0, Cong1
+008D 309194           68             jnb P1.1, Tru1
+0090 BE0102           69             cjne R6, #1, up
+0093 80D5             70     jmp dem
+0095                  71     up:
+0095 0D               72             inc R5
+0096 BD0AD1           73             cjne R5, #10, dem
+0099 7D00             74             mov R5, #0
+009B 0C               75             inc R4
+009C BC0ACB           76             cjne R4, #10, dem
+009F 7C00             77             mov R4, #0
+00A1 0B               78             inc R3
+00A2 BB0AC5           79             cjne R3, #10,dem
+00A5 7B00             80             mov R3, #0
+00A7 0A               81             inc R2
+00A8 BA0ABF           82             cjne R2, #10, dem
+00AB 7A00             83             mov R2, #0
+00AD 22               84     ret
+00AE                  85     main:
+00AE 75A885           86             mov IE, #85h
+00B1 D28A             87             setb IT1
+00B3 D288             88             setb IT0
+                      89             
+00B5 7E00             90             mov R6, #0
+00B7 7D00             91             mov R5, #0
+00B9 7C00             92             mov R4, #0
+00BB 7B00             93             mov R3, #0
+00BD 7A00             94             mov R2, #0
+                      95             
+00BF                  96             loop:
+00BF 12006A           97                     lcall dem
+00C2 80FB             98             sjmp loop
+                      99             
+                     100     end
                                      
-A51 MACRO ASSEMBLER  MAIN                                                                 04/30/2023 10:40:59 PAGE     3
+A51 MACRO ASSEMBLER  MAIN                                                                 04/30/2023 14:25:10 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -116,28 +119,28 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-CONG1. . . . . . .  C ADDR   0006H   A   
-DELAY1MS . . . . .  C ADDR   0035H   A   
-DELAY2_49MS. . . .  C ADDR   0022H   A   
-DEM. . . . . . . .  C ADDR   0059H   A   
+CONG1. . . . . . .  C ADDR   0016H   A   
+DELAY1MS . . . . .  C ADDR   0045H   A   
+DELAY2_49MS. . . .  C ADDR   0032H   A   
+DEM. . . . . . . .  C ADDR   006AH   A   
 IE . . . . . . . .  D ADDR   00A8H   A   
 IT0. . . . . . . .  B ADDR   0088H.0 A   
 IT1. . . . . . . .  B ADDR   0088H.2 A   
-LOOP . . . . . . .  C ADDR   00AEH   A   
-MAIN . . . . . . .  C ADDR   009DH   A   
-OUT. . . . . . . .  C ADDR   004EH   A   
+LOOP . . . . . . .  C ADDR   00BFH   A   
+MAIN . . . . . . .  C ADDR   00AEH   A   
+OUT. . . . . . . .  C ADDR   005EH   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
 P2 . . . . . . . .  D ADDR   00A0H   A   
 P3 . . . . . . . .  D ADDR   00B0H   A   
-PAUSE. . . . . . .  C ADDR   0048H   A   
-RESET. . . . . . .  C ADDR   004FH   A   
+PAUSE. . . . . . .  C ADDR   0058H   A   
+RESET. . . . . . .  C ADDR   005FH   A   
 TF0. . . . . . . .  B ADDR   0088H.5 A   
 TH0. . . . . . . .  D ADDR   008CH   A   
 TL0. . . . . . . .  D ADDR   008AH   A   
 TMOD . . . . . . .  D ADDR   0089H   A   
 TR0. . . . . . . .  B ADDR   0088H.4 A   
-TRU1 . . . . . . .  C ADDR   0014H   A   
-UP . . . . . . . .  C ADDR   0084H   A   
+TRU1 . . . . . . .  C ADDR   0024H   A   
+UP . . . . . . . .  C ADDR   0095H   A   
 
 
 REGISTER BANK(S) USED: 0 
