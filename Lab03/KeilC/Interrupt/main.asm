@@ -96,6 +96,5 @@ main:
 	loop:
 		lcall dem
 	sjmp loop
-	
 end
 	
