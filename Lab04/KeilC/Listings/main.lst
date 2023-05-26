@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  MAIN                                                                 05/22/2023 16:34:41 PAGE     1
+A51 MACRO ASSEMBLER  MAIN                                                                 05/26/2023 08:45:53 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -9,440 +9,451 @@ ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE main.asm SET(SMALL) DEBUG PRINT
 LOC  OBJ            LINE     SOURCE
 
 0000                   1     ORG 00H 
-  00A7                 2             SECONDNUM EQU P2.7
-  00A6                 3             SECONDDIGIT EQU P2.6
+  00A7                 2             SECONDNUM EQU P2.7 ;BIT SE DUOC SET KHI NHAP SO THU 2
+  00A6                 3             SECONDDIGIT EQU P2.6 ;BIT SE DUOC SET THI NHAP SO HANG THU 2 CUA MOI SO
 0030                   4     ORG 0030H 
 0030                   5     SETUP:
-0030 758921            6             MOV TMOD, #21H 
-0033 758DFD            7             MOV TH1, #0FDH 
-0036 759850            8             MOV SCON, #50H 
-0039 D28E              9             SETB TR1
-003B 7C00             10             MOV R4, #00H ;STORE RESULT
-003D 7B00             11             MOV R3, #00H ;STORE NUM2
-003F 7A00             12             MOV R2, #00H ;STORE OPERATOR
-0041 7900             13             MOV R1, #00H ;STORE NUM1
-0043 7590FE           14             MOV P1 , #0FEH ; BAT DAU VOI HANG 1 ; CHANGE TO DEBUG
-0046 75A000           15             MOV P2, #00H
-                      16             
-                      17             
-0049                  18     SCANHANG:
-0049 30902F           19             JNB P1.0, SCANCOT1
-004C 30911A           20             JNB P1.1, SCANCOT2
-004F 309205           21             JNB P1.2, SCANCOT3
-0052 309338           22             JNB P1.3, SCANCOT4
-0055 80F2             23     SJMP SCANHANG
-                      24     
-0057                  25     SCANCOT3:
-0057 30946D           26             JNB P1.4, BUTTON_4
-005A 30956F           27             JNB P1.5, BUTTON_5
-005D 309671           28             JNB P1.6, BUTTON_6
-0060 309773           29             JNB P1.7, BUTTON_MUL
-0063 D292             30             SETB P1.2
-0065 C293             31             CLR P1.3        
-0067 80E0             32     SJMP SCANHANG
-                      33     
-0069                  34     SCANCOT2:
-                      35             
-0069 309447           36             JNB P1.4, BUTTON_1
-006C 309549           37             JNB P1.5, BUTTON_2
-006F 30964B           38             JNB P1.6, BUTTON_3
-0072 30974D           39             JNB P1.7, BUTTON_SUB
-0075 D291             40             SETB P1.1
-0077 C292             41             CLR P1.2        
-0079 80CE             42     SJMP SCANHANG
-                      43     
-007B                  44     SCANCOT1:
-007B 309421           45             JNB P1.4, BUTTON_ON
-007E 309523           46             JNB P1.5, BUTTON_0
-0081 309625           47             JNB P1.6, BUTTON_EQUAL
-0084 309727           48             JNB P1.7, BUTTON_ADD
-0087 D290             49             SETB P1.0
-0089 C291             50             CLR P1.1        
-008B 80BC             51     SJMP SCANHANG
-                      52     
-008D                  53     SCANCOT4: 
-008D 30944B           54             JNB P1.4, BUTTON_7
-0090 30954D           55             JNB P1.5, BUTTON_8
-0093 30964F           56             JNB P1.6, BUTTON_9
-0096 309751           57             JNB P1.7, BUTTON_DIVIDE
-A51 MACRO ASSEMBLER  MAIN                                                                 05/22/2023 16:34:41 PAGE     2
+                       6             ;SET UP TOC DO BAUD
+0030 758921            7             MOV TMOD, #21H 
+0033 758DFD            8             MOV TH1, #0FDH 
+0036 759850            9             MOV SCON, #50H 
+0039 D28E             10             SETB TR1
+                      11             ; SETUP CAC THANH GHI 
+003B 7D00             12             MOV R5, #00H ;R5 CHUA SO DU
+003D 7C00             13             MOV R4, #00H ;R4 CHUA KETQUA
+003F 7B00             14             MOV R3, #00H ;R3 CHUA SO THU 2
+0041 7A00             15             MOV R2, #00H ;R2 CHUA MA ASCII CUA PHEP TOAN
+0043 7900             16             MOV R1, #00H ;R1 CHUA SO THU 1
+0045 7590FE           17             MOV P1 , #0FEH ; BAT DAU QUET VOI HANG 1
+0048 75A000           18             MOV P2, #00H 
+                      19             
+                      20             ;QUET HANG
+004B                  21     SCANHANG:
+004B 30900B           22             JNB P1.0, SCANCOT1  ; NEU P1.0 = 0 THI QUET COT 1
+004E 30911A           23             JNB P1.1, SCANCOT2  ; NEU P1.1 = 0 THI QUET COT 2
+0051 309229           24             JNB P1.2, SCANCOT3  ; NEU P1.2 = 0 THI QUET COT 3
+0054 309338           25             JNB P1.3, SCANCOT4  ; NEU P1.3 = 0 THI QUET COT 4
+0057 80F2             26     SJMP SCANHANG
+                      27     
+0059                  28     SCANCOT1:
+                      29             
+0059 309445           30             JNB P1.4, BUTTON_ON ; NEU P1.4 = 0 THI VAO LABEL BUTTON_ON
+005C 309547           31             JNB P1.5, BUTTON_0 ; NEU P1.5 = 0 THI VAO LABEL BUTTON_0
+005F 309649           32             JNB P1.6, BUTTON_EQUAL ; NEU P1.6 = 0 THI VAO LABEL BUTTON_EQUAL
+0062 30974B           33             JNB P1.7, BUTTON_ADD ; NEU P1.7 = 0 THI VAO LABEL BUTTON_ADD
+0065 D290             34             SETB P1.0 ; SET BIT P1.0
+0067 C291             35             CLR P1.1 ; CLR P1.1 DE QUET COT THU 2
+0069 80E0             36     SJMP SCANHANG
+                      37     
+006B                  38     SCANCOT2:
+                      39             
+006B 309447           40             JNB P1.4, BUTTON_1 ; NEU P1.4 = 0 THI VAO LABEL BUTTON_1
+006E 309549           41             JNB P1.5, BUTTON_2 ; NEU P1.5 = 0 THI VAO LABEL BUTTON_2
+0071 30964B           42             JNB P1.6, BUTTON_3 ; NEU P1.6 = 0 THI VAO LABEL BUTTON_3
+0074 30974D           43             JNB P1.7, BUTTON_SUB ; NEU P1.7 = 0 THI VAO LABEL BUTTON_SUB
+0077 D291             44             SETB P1.1 ; SET BIT P1.1
+0079 C292             45             CLR P1.2 ; CLR P1.2 DE QUET COT THU 3
+007B 80CE             46     SJMP SCANHANG
+                      47     
+007D                  48     SCANCOT3:
+007D 309449           49             JNB P1.4, BUTTON_4  ; NEU P1.4 = 0 THI VAO LABEL BUTTON_4
+0080 30954B           50             JNB P1.5, BUTTON_5  ; NEU P1.5 = 0 THI VAO LABEL BUTTON_5
+0083 30964D           51             JNB P1.6, BUTTON_6  ; NEU P1.6 = 0 THI VAO LABEL BUTTON_6
+0086 30974F           52             JNB P1.7, BUTTON_MUL  ; NEU P1.7 = 0 THI VAO LABEL BUTTON_MUL
+0089 D292             53             SETB P1.2 ; SET BIT P1.2
+008B C293             54             CLR P1.3 ; CLR P1.3 DE QUET COT THU 4
+008D 80BC             55     SJMP SCANHANG
+                      56     
+008F                  57     SCANCOT4: 
+A51 MACRO ASSEMBLER  MAIN                                                                 05/26/2023 08:45:53 PAGE     2
 
-0099 D293             58             SETB P1.3
-009B C290             59             CLR P1.0
-009D 80AA             60     SJMP SCANHANG
-                      61     
-009F                  62     BUTTON_ON: 
-009F 519A             63             ACALL DELAY
-00A1 0200EF           64             LJMP CLICK_ON
-00A4                  65     BUTTON_0: 
-00A4 519A             66             ACALL DELAY
-00A6 0200F4           67             LJMP CLICK_0
-00A9                  68     BUTTON_EQUAL: 
-00A9 519A             69             ACALL DELAY
-00AB 0200FD           70             LJMP CLICK_EQUAL
-00AE                  71     BUTTON_ADD:
-00AE 519A             72             ACALL DELAY
-00B0 020106           73             LJMP CLICK_ADD
-00B3                  74     BUTTON_1:
-00B3 519A             75             ACALL DELAY
-00B5 02010F           76             LJMP CLICK_1
-00B8                  77     BUTTON_2:
-00B8 519A             78             ACALL DELAY
-00BA 020118           79             LJMP CLICK_2
-00BD                  80     BUTTON_3:
-00BD 519A             81             ACALL DELAY
-00BF 020121           82             LJMP CLICK_3
-00C2                  83     BUTTON_SUB:
-00C2 519A             84             ACALL DELAY
-00C4 02012A           85             LJMP CLICK_SUB
-00C7                  86     BUTTON_4:
-00C7 519A             87             ACALL DELAY
-00C9 020133           88             LJMP CLICK_4
-00CC                  89     BUTTON_5:
-00CC 519A             90             ACALL DELAY
-00CE 02013C           91             LJMP CLICK_5
-00D1                  92     BUTTON_6:
-00D1 519A             93             ACALL DELAY
-00D3 020145           94             LJMP CLICK_6
-00D6                  95     BUTTON_MUL: 
-00D6 519A             96             ACALL DELAY
-00D8 02014E           97             LJMP CLICK_MUL
-00DB                  98     BUTTON_7:
-00DB 519A             99             ACALL DELAY
-00DD 020157          100             LJMP CLICK_7
-00E0                 101     BUTTON_8:
-00E0 519A            102             ACALL DELAY
-00E2 020160          103             LJMP CLICK_8
-00E5                 104     BUTTON_9:
-00E5 519A            105             ACALL DELAY
-00E7 020169          106             LJMP CLICK_9
-00EA                 107     BUTTON_DIVIDE:
-00EA 519A            108             ACALL DELAY
-00EC 020172          109             LJMP CLICK_DIVIDE
-                     110     
-00EF                 111     CLICK_ON: 
-00EF D2A0            112             SETB P2.0
-00F1 020049          113     LJMP SCANHANG
+008F 30944B           58             JNB P1.4, BUTTON_7 ; NEU P1.4 = 0 THI VAO LABEL BUTTON_7
+0092 30954D           59             JNB P1.5, BUTTON_8 ; NEU P1.5 = 0 THI VAO LABEL BUTTON_8
+0095 30964F           60             JNB P1.6, BUTTON_9 ; NEU P1.6 = 0 THI VAO LABEL BUTTON_9
+0098 309751           61             JNB P1.7, BUTTON_DIVIDE ; NEU P1.7 = 0 THI VAO LABEL BUTTON_DIVIDE
+009B D293             62             SETB P1.3 ; SET BIT P1.3
+009D C290             63             CLR P1.0 ; CLR P1.0 DE QUET COT THU 1
+009F 80AA             64     SJMP SCANHANG
+                      65     
+00A1                  66     BUTTON_ON:  
+00A1 519C             67             ACALL DELAY ;CHONG DOI
+00A3 0200F1           68             LJMP CLICK_ON ; DEN LABEL CLICK_ON
+00A6                  69     BUTTON_0: 
+00A6 519C             70             ACALL DELAY ;CHONG DOI
+00A8 0200F6           71             LJMP CLICK_0 ; DEN LABEL CLICK_0
+00AB                  72     BUTTON_EQUAL: 
+00AB 519C             73             ACALL DELAY ;CHONG DOI
+00AD 0200FF           74             LJMP CLICK_EQUAL ; DEN LABEL CLICK_EQUAL
+00B0                  75     BUTTON_ADD:
+00B0 519C             76             ACALL DELAY ;CHONG DOI
+00B2 020108           77             LJMP CLICK_ADD ; DEN LABEL CLICK_ADD
+00B5                  78     BUTTON_1:
+00B5 519C             79             ACALL DELAY ;CHONG DOI
+00B7 020111           80             LJMP CLICK_1 ; DEN LABEL CLICK_1
+00BA                  81     BUTTON_2:
+00BA 519C             82             ACALL DELAY ;CHONG DOI
+00BC 02011A           83             LJMP CLICK_2 ; DEN LABEL CLICK_2
+00BF                  84     BUTTON_3:
+00BF 519C             85             ACALL DELAY ;CHONG DOI
+00C1 020123           86             LJMP CLICK_3 ; DEN LABEL CLICK_3
+00C4                  87     BUTTON_SUB:
+00C4 519C             88             ACALL DELAY ;CHONG DOI
+00C6 02012C           89             LJMP CLICK_SUB ; DEN LABEL CLICK_SUB
+00C9                  90     BUTTON_4: 
+00C9 519C             91             ACALL DELAY ;CHONG DOI
+00CB 020135           92             LJMP CLICK_4 ; DEN LABEL CLICK_4
+00CE                  93     BUTTON_5:
+00CE 519C             94             ACALL DELAY ;CHONG DOI
+00D0 02013E           95             LJMP CLICK_5 ; DEN LABEL CLICK_5
+00D3                  96     BUTTON_6:
+00D3 519C             97             ACALL DELAY ;CHONG DOI
+00D5 020147           98             LJMP CLICK_6 ; DEN LABEL CLICK_6
+00D8                  99     BUTTON_MUL: 
+00D8 519C            100             ACALL DELAY ;CHONG DOI
+00DA 020150          101             LJMP CLICK_MUL ; DEN LABEL CLICK_MUL
+00DD                 102     BUTTON_7:
+00DD 519C            103             ACALL DELAY ;CHONG DOI
+00DF 020159          104             LJMP CLICK_7 ; DEN LABEL CLICK_7
+00E2                 105     BUTTON_8:
+00E2 519C            106             ACALL DELAY ;CHONG DOI
+00E4 020162          107             LJMP CLICK_8 ; DEN LABEL CLICK_8
+00E7                 108     BUTTON_9:
+00E7 519C            109             ACALL DELAY ;CHONG DOI
+00E9 02016B          110             LJMP CLICK_9 ; DEN LABEL CLICK_9
+00EC                 111     BUTTON_DIVIDE:
+00EC 519C            112             ACALL DELAY ;CHONG DOI
+00EE 020174          113             LJMP CLICK_DIVIDE ; DEN LABEL CLICK_DIVIDE
                      114     
-00F4                 115     CLICK_0:
-00F4 7830            116             MOV R0, #'0'
-00F6 3185            117             ACALL STORE_NUM
-00F8 317B            118             ACALL TRUYEN
-00FA 020049          119     LJMP SCANHANG
-                     120     
-00FD                 121     CLICK_EQUAL:
-00FD 783D            122             MOV R0, #'='
-00FF 317B            123             ACALL TRUYEN
-A51 MACRO ASSEMBLER  MAIN                                                                 05/22/2023 16:34:41 PAGE     3
+00F1                 115     CLICK_ON: 
+00F1 D2A0            116             SETB P2.0 ;SET BIT P2.0 DE RESET 8051
+00F3 02004B          117     LJMP SCANHANG
+                     118     
+00F6                 119     CLICK_0:
+00F6 7830            120             MOV R0, #'0' ; R0 CHUA MA ASCII CUA '0'
+00F8 3187            121             ACALL STORE_NUM ; GOI LABEL STORE_NUM
+00FA 317D            122             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+00FC 02004B          123     LJMP SCANHANG
+A51 MACRO ASSEMBLER  MAIN                                                                 05/26/2023 08:45:53 PAGE     3
 
-0101 31CD            124             ACALL RESULT
-0103 020049          125     LJMP SCANHANG
-                     126     
-0106                 127     CLICK_ADD:
-0106 782B            128             MOV R0, #'+'
-0108 31C6            129             ACALL OPERATOR
-010A 317B            130             ACALL TRUYEN
-010C 020049          131     LJMP SCANHANG
-                     132     
-010F                 133     CLICK_1:
-010F 7831            134             MOV R0, #'1'
-0111 3185            135             ACALL STORE_NUM
-0113 317B            136             ACALL TRUYEN
-0115 020049          137     LJMP SCANHANG
-                     138     
-0118                 139     CLICK_2:
-0118 7832            140             MOV R0, #'2'
-011A 3185            141             ACALL STORE_NUM
-011C 317B            142             ACALL TRUYEN
-011E 020049          143     LJMP SCANHANG
-                     144     
-0121                 145     CLICK_3:
-0121 7833            146             MOV R0, #'3'
-0123 3185            147             ACALL STORE_NUM
-0125 317B            148             ACALL TRUYEN
-0127 020049          149     LJMP SCANHANG
-                     150     
-012A                 151     CLICK_SUB:
-012A 782D            152             MOV R0, #'-'
-012C 31C6            153             ACALL OPERATOR
-012E 317B            154             ACALL TRUYEN
-0130 020049          155     LJMP SCANHANG
-                     156     
-0133                 157     CLICK_4:
-0133 7834            158             MOV R0, #'4'
-0135 3185            159             ACALL STORE_NUM
-0137 317B            160             ACALL TRUYEN
-0139 020049          161     LJMP SCANHANG
-                     162     
-013C                 163     CLICK_5:
-013C 7835            164             MOV R0, #'5'
-013E 3185            165             ACALL STORE_NUM
-0140 317B            166             ACALL TRUYEN
-0142 020049          167     LJMP SCANHANG
-                     168     
-0145                 169     CLICK_6:
-0145 7836            170             MOV R0, #'6'
-0147 3185            171             ACALL STORE_NUM
-0149 317B            172             ACALL TRUYEN
-014B 020049          173     LJMP SCANHANG
-                     174     
-014E                 175     CLICK_MUL:
-014E 782A            176             MOV R0, #'*'
-0150 31C6            177             ACALL OPERATOR
-0152 317B            178             ACALL TRUYEN
-0154 020049          179     LJMP SCANHANG
-                     180     
-0157                 181     CLICK_7:
-0157 7837            182             MOV R0, #'7'
-0159 3185            183             ACALL STORE_NUM
-015B 317B            184             ACALL TRUYEN
-015D 020049          185     LJMP SCANHANG
-                     186     
-0160                 187     CLICK_8:
-0160 7838            188             MOV R0, #'8'
-0162 3185            189             ACALL STORE_NUM
-A51 MACRO ASSEMBLER  MAIN                                                                 05/22/2023 16:34:41 PAGE     4
+                     124     
+00FF                 125     CLICK_EQUAL:
+00FF 783D            126             MOV R0, #'=' ; R0 CHUA MA ASCII CUA '='
+0101 317D            127             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+0103 31CF            128             ACALL RESULT ;GOI DEN LABEL RESULT
+0105 02004B          129     LJMP SCANHANG
+                     130     
+0108                 131     CLICK_ADD:
+0108 782B            132             MOV R0, #'+' ;; R0 CHUA MA ASCII CUA '+'
+010A 31C8            133             ACALL OPERATOR ;GOI DEN LABEL OPERATOR
+010C 317D            134             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+010E 02004B          135     LJMP SCANHANG
+                     136     
+0111                 137     CLICK_1:
+0111 7831            138             MOV R0, #'1' ; R0 CHUA MA ASCII CUA '1'
+0113 3187            139             ACALL STORE_NUM ; GOI LABEL STORE_NUM
+0115 317D            140             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+0117 02004B          141     LJMP SCANHANG
+                     142     
+011A                 143     CLICK_2:
+011A 7832            144             MOV R0, #'2' ; R0 CHUA MA ASCII CUA '2'
+011C 3187            145             ACALL STORE_NUM ; GOI LABEL STORE_NUM
+011E 317D            146             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+0120 02004B          147     LJMP SCANHANG
+                     148     
+0123                 149     CLICK_3:
+0123 7833            150             MOV R0, #'3' ; R0 CHUA MA ASCII CUA '3'
+0125 3187            151             ACALL STORE_NUM ; GOI LABEL STORE_NUM
+0127 317D            152             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+0129 02004B          153     LJMP SCANHANG
+                     154     
+012C                 155     CLICK_SUB:
+012C 782D            156             MOV R0, #'-' ; R0 CHUA MA ASCII CUA '-'
+012E 31C8            157             ACALL OPERATOR ;GOI DEN LABEL OPERATOR
+0130 317D            158             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+0132 02004B          159     LJMP SCANHANG
+                     160     
+0135                 161     CLICK_4: 
+0135 7834            162             MOV R0, #'4' ; R0 CHUA MA ASCII CUA 4'
+0137 3187            163             ACALL STORE_NUM ; GOI LABEL STORE_NUM
+0139 317D            164             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+013B 02004B          165     LJMP SCANHANG
+                     166     
+013E                 167     CLICK_5:
+013E 7835            168             MOV R0, #'5' ; R0 CHUA MA ASCII CUA '5'
+0140 3187            169             ACALL STORE_NUM ; GOI LABEL STORE_NUM
+0142 317D            170             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+0144 02004B          171     LJMP SCANHANG
+                     172     
+0147                 173     CLICK_6:
+0147 7836            174             MOV R0, #'6' ; R0 CHUA MA ASCII CUA '6'
+0149 3187            175             ACALL STORE_NUM ; GOI LABEL STORE_NUM
+014B 317D            176             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+014D 02004B          177     LJMP SCANHANG
+                     178     
+0150                 179     CLICK_MUL:
+0150 782A            180             MOV R0, #'*' ; R0 CHUA MA ASCII CUA '*'
+0152 31C8            181             ACALL OPERATOR ;GOI DEN LABEL OPERATOR
+0154 317D            182             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+0156 02004B          183     LJMP SCANHANG
+                     184     
+0159                 185     CLICK_7:
+0159 7837            186             MOV R0, #'7' ; R0 CHUA MA ASCII CUA '7'
+015B 3187            187             ACALL STORE_NUM ; GOI LABEL STORE_NUM
+015D 317D            188             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+015F 02004B          189     LJMP SCANHANG
+A51 MACRO ASSEMBLER  MAIN                                                                 05/26/2023 08:45:53 PAGE     4
 
-0164 317B            190             ACALL TRUYEN
-0166 020049          191     LJMP SCANHANG
-                     192     
-0169                 193     CLICK_9:
-0169 7839            194             MOV R0, #'9'
-016B 3185            195             ACALL STORE_NUM
-016D 317B            196             ACALL TRUYEN
-016F 020049          197     LJMP SCANHANG
-                     198     
-0172                 199     CLICK_DIVIDE:
-0172 782F            200             MOV R0, #'/'
-0174 31C6            201             ACALL OPERATOR
-0176 317B            202             ACALL TRUYEN
-0178 020049          203     LJMP SCANHANG
-                     204     
-017B                 205     TRUYEN: 
-017B 8899            206             MOV SBUF, R0 
-017D 3099FD          207             JNB TI, $ 
-0180 C299            208             CLR TI
-0182 518A            209             ACALL DELAY1MS
-0184 22              210     RET
-                     211     
-0185                 212     STORE_NUM:
-0185 20A71F          213             JB SECONDNUM, STORE_NUM2
-0188 20A607          214             JB SECONDDIGIT, STORE_SECONDDIGIT_NUM1
-018B E8              215             MOV A, R0
-018C 9430            216             SUBB A, #30H
-018E F9              217             MOV R1, A
-018F D2A6            218             SETB SECONDDIGIT
-0191 22              219     RET
-                     220     
-0192                 221     STORE_SECONDDIGIT_NUM1:
-0192 E8              222             MOV A, R0
-0193 75F00A          223             MOV B, #10D
-0196 9430            224             SUBB A, #30H
-0198 FF              225             MOV R7, A
-0199 E9              226             MOV A, R1
-019A A4              227             MUL AB
-019B AEF0            228             MOV R6, B
-019D BE0065          229             CJNE R6, #00H, OVERFLOW
-01A0 2F              230             ADD A, R7
-01A1 4062            231             JC OVERFLOW
-01A3 F9              232             MOV R1, A
-01A4 D2A6            233             SETB SECONDDIGIT
-01A6 22              234     RET
-01A7                 235     STORE_NUM2:
-01A7 20A607          236             JB SECONDDIGIT, STORE_SECONDDIGIT_NUM2
-01AA E8              237             MOV A, R0
-01AB 9430            238             SUBB A, #30H
-01AD FB              239             MOV R3, A
-01AE D2A6            240             SETB SECONDDIGIT
-01B0 22              241     RET
-01B1                 242     STORE_SECONDDIGIT_NUM2:
-01B1 E8              243             MOV A, R0
-01B2 75F00A          244             MOV B, #10D
-01B5 9430            245             SUBB A, #30H
-01B7 FF              246             MOV R7, A
-01B8 EB              247             MOV A, R3
-01B9 A4              248             MUL AB
-01BA AEF0            249             MOV R6, B
-01BC BE0046          250             CJNE R6, #00H, OVERFLOW
-01BF 2F              251             ADD A, R7
-01C0 4043            252             JC OVERFLOW
-01C2 FB              253             MOV R3, A
-01C3 D2A6            254             SETB SECONDDIGIT
-01C5 22              255     RET
-A51 MACRO ASSEMBLER  MAIN                                                                 05/22/2023 16:34:41 PAGE     5
+                     190     
+0162                 191     CLICK_8:
+0162 7838            192             MOV R0, #'8' ; R0 CHUA MA ASCII CUA '8'
+0164 3187            193             ACALL STORE_NUM ; GOI LABEL STORE_NUM
+0166 317D            194             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+0168 02004B          195     LJMP SCANHANG
+                     196     
+016B                 197     CLICK_9:
+016B 7839            198             MOV R0, #'9' ; R0 CHUA MA ASCII CUA '9'
+016D 3187            199             ACALL STORE_NUM ; GOI LABEL STORE_NUM
+016F 317D            200             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+0171 02004B          201     LJMP SCANHANG
+                     202     
+0174                 203     CLICK_DIVIDE:
+0174 782F            204             MOV R0, #'/' ; R0 CHUA MA ASCII CUA '/'
+0176 31C8            205             ACALL OPERATOR ;GOI DEN LABEL OPERATOR
+0178 317D            206             ACALL TRUYEN ;GOI DEN LABEL TRUYEN
+017A 02004B          207     LJMP SCANHANG
+                     208     
+                     209     ;DUNG DE TRUYEN KI TU DEN UART LCD
+017D                 210     TRUYEN: 
+017D 8899            211             MOV SBUF, R0 ;SBUF = R0
+017F 3099FD          212             JNB TI, $ ;DOI T1 = 1
+0182 C299            213             CLR TI ; KHI T1=1 THI CLR T1 
+0184 518C            214             ACALL DELAY1MS 
+0186 22              215     RET
+                     216     
+                     217     ; XU LI VIEC LUU GIA TRI NHAP VAO THANH GHI
+0187                 218     STORE_NUM:
+0187 20A71F          219             JB SECONDNUM, STORE_NUM2 ;NEU SECONDNUM = 1 NGHIA LA LUA TOAN HANG THU 2 THI NHAY D
+                             EN LABEL STORE_NUM2
+018A 20A607          220             JB SECONDDIGIT, STORE_SECONDDIGIT_NUM1 ; NEU SECONDDIGIT = 1 NGHIA LA DANG LUU DIGI
+                             T THU2 THI NHAAY DEN LABEL STORE_SECONDDIGIT
+018D E8              221             MOV A, R0 ;LUU MA ASCII CUA KI TU VAO THANH GHI ACC
+018E 9430            222             SUBB A, #30H ; DUA MA ASCII VE SO TUONG UNG
+0190 F9              223             MOV R1, A ; LUU GIA TRI CUA A VAO R1
+0191 D2A6            224             SETB SECONDDIGIT ;SET BIT SECONDDIGIT
+0193 22              225     RET
+                     226     
+                     227     ;DUNG DE LUU DIGIT THU 2
+0194                 228     STORE_SECONDDIGIT_NUM1:
+0194 E8              229             MOV A, R0  ;LUU MA ASCII VAO THANH GHI ACC
+0195 75F00A          230             MOV B, #10D ; GAN THANH GHI B = 10
+0198 9430            231             SUBB A, #30H  ; DUA MA ASCII VE SO TUONG UNG
+019A FF              232             MOV R7, A ;GAN SO DO CHO R7
+019B E9              233             MOV A, R1 ;DUA GIA TRI SAN CO TRONG R1(FIRST DIGIT) VAO ACC
+019C A4              234             MUL AB ;NHAN A CHO B
+019D AEF0            235             MOV R6, B ;DUA GIA TRI B VAO R6
+019F BE0065          236             CJNE R6, #00H, OVERFLOW ; NEU B!-0 THI NHAY DE OVERFLOW(VI TRONG LEN MUL AB, B CHUA
+                              BIT TRAN)
+01A2 2F              237             ADD A, R7 ;CONG GIA TRI CUA A VA R7
+01A3 4062            238             JC OVERFLOW ; NEU KET QUA A + R7 BI TRAN THI NHAY DEN OVERFLOW
+01A5 F9              239             MOV R1, A ; DUA GIA TRI TRONG A VAO R1
+01A6 D2A6            240             SETB SECONDDIGIT ;SET BIT SECONDDIGIT
+01A8 22              241     RET
+01A9                 242     STORE_NUM2:
+01A9 20A607          243             JB SECONDDIGIT, STORE_SECONDDIGIT_NUM2 ;NEU SECODDIGIT = 1 NGHIA LA DANG NHAP DIGIT
+                              THU 2 THI NHAY DEN LABEL
+01AC E8              244             MOV A, R0
+01AD 9430            245             SUBB A, #30H
+01AF FB              246             MOV R3, A
+01B0 D2A6            247             SETB SECONDDIGIT
+01B2 22              248     RET
+01B3                 249     STORE_SECONDDIGIT_NUM2:
+01B3 E8              250             MOV A, R0
+01B4 75F00A          251             MOV B, #10D
+A51 MACRO ASSEMBLER  MAIN                                                                 05/26/2023 08:45:53 PAGE     5
 
-                     256     
-01C6                 257     OPERATOR:
-01C6 D2A7            258             SETB SECONDNUM
-01C8 C2A6            259             CLR SECONDDIGIT
-01CA E8              260             MOV A, R0
-01CB FA              261             MOV R2, A
-01CC 22              262     RET
+01B7 9430            252             SUBB A, #30H
+01B9 FF              253             MOV R7, A
+01BA EB              254             MOV A, R3
+01BB A4              255             MUL AB
+01BC AEF0            256             MOV R6, B
+01BE BE0046          257             CJNE R6, #00H, OVERFLOW
+01C1 2F              258             ADD A, R7
+01C2 4043            259             JC OVERFLOW
+01C4 FB              260             MOV R3, A
+01C5 D2A6            261             SETB SECONDDIGIT
+01C7 22              262     RET
                      263     
-01CD                 264     RESULT:
-01CD BA2B0B          265             CJNE R2, #"+", SUB
-01D0 E9              266             MOV A, R1
-01D1 C3              267             CLR C
-01D2 2B              268             ADD A, R3
-01D3 4030            269             JC OVERFLOW
-01D5 7D00            270             MOV R5, #0H
-01D7 FC              271             MOV R4, A
-01D8 020216          272     LJMP ERROR
-                     273     
-01DB                 274     SUB:
-01DB BA2D0B          275             CJNE R2, #"-", MULTI
-01DE E9              276             MOV A, R1
-01DF C3              277             CLR C
-01E0 9B              278             SUBB A, R3
-01E1 4022            279             JC OVERFLOW
-01E3 7D00            280             MOV R5, #0H
-01E5 FC              281             MOV R4, A
-01E6 020216          282     LJMP ERROR
-                     283     
-01E9                 284     MULTI:
-01E9 BA2A0F          285             CJNE R2, #"*", DIVIDE
-01EC E9              286             MOV A, R1
-01ED 8BF0            287             MOV B, R3
-01EF A4              288             MUL AB
-01F0 AFF0            289             MOV R7, B
-01F2 BF0010          290             CJNE R7, #0H, OVERFLOW
-01F5 7D00            291             MOV R5, #0H
-01F7 FC              292             MOV R4, A
-01F8 020216          293     LJMP ERROR
-                     294     
-01FB                 295     DIVIDE:
-01FB E9              296             MOV A, R1
-01FC 8BF0            297             MOV B, R3
-01FE 84              298             DIV AB
-01FF FC              299             MOV R4, A
-0200 ADF0            300             MOV R5, B
-0202 020216          301     LJMP ERROR
-                     302     
-0205                 303     OVERFLOW:
-0205 9002AD          304             MOV DPTR, #MES_OVERFLOW
-0208 C3              305             CLR C
-0209 7F00            306             MOV R7, #0D
-020B                 307     SHOW_MES_OVERFLOW:
-020B EF              308             MOV A, R7
-020C 93              309             MOVC A, @A+DPTR
-020D F8              310             MOV R0, A
-020E 317B            311             ACALL TRUYEN
-0210 6003            312             JZ END_SHOW
-0212 0F              313             INC R7
-0213 80F6            314             SJMP SHOW_MES_OVERFLOW
-0215                 315     END_SHOW:
-0215 22              316     RET
-                     317     
-0216                 318     ERROR:
-0216 BB0012          319             CJNE R3, #0D, NORMAL
-0219 BA2F0F          320             CJNE R2, #"/", NORMAL
-021C 9002B7          321             MOV DPTR, #MES_ERROR
-A51 MACRO ASSEMBLER  MAIN                                                                 05/22/2023 16:34:41 PAGE     6
+01C8                 264     OPERATOR:
+01C8 D2A7            265             SETB SECONDNUM
+01CA C2A6            266             CLR SECONDDIGIT
+01CC E8              267             MOV A, R0
+01CD FA              268             MOV R2, A
+01CE 22              269     RET
+                     270     
+01CF                 271     RESULT:
+01CF BA2B0B          272             CJNE R2, #"+", SUB
+01D2 E9              273             MOV A, R1
+01D3 C3              274             CLR C
+01D4 2B              275             ADD A, R3
+01D5 4030            276             JC OVERFLOW
+01D7 7D00            277             MOV R5, #0H
+01D9 FC              278             MOV R4, A
+01DA 020218          279     LJMP ERROR
+                     280     
+01DD                 281     SUB:
+01DD BA2D0B          282             CJNE R2, #"-", MULTI
+01E0 E9              283             MOV A, R1
+01E1 C3              284             CLR C
+01E2 9B              285             SUBB A, R3
+01E3 4022            286             JC OVERFLOW
+01E5 7D00            287             MOV R5, #0H
+01E7 FC              288             MOV R4, A
+01E8 020218          289     LJMP ERROR
+                     290     
+01EB                 291     MULTI:
+01EB BA2A0F          292             CJNE R2, #"*", DIVIDE
+01EE E9              293             MOV A, R1
+01EF 8BF0            294             MOV B, R3
+01F1 A4              295             MUL AB
+01F2 AFF0            296             MOV R7, B
+01F4 BF0010          297             CJNE R7, #0H, OVERFLOW
+01F7 7D00            298             MOV R5, #0H
+01F9 FC              299             MOV R4, A
+01FA 020218          300     LJMP ERROR
+                     301     
+01FD                 302     DIVIDE:
+01FD E9              303             MOV A, R1
+01FE 8BF0            304             MOV B, R3
+0200 84              305             DIV AB
+0201 FC              306             MOV R4, A
+0202 ADF0            307             MOV R5, B
+0204 020218          308     LJMP ERROR
+                     309     
+0207                 310     OVERFLOW:
+0207 9002AF          311             MOV DPTR, #MES_OVERFLOW
+020A C3              312             CLR C
+020B 7F00            313             MOV R7, #0D
+020D                 314     SHOW_MES_OVERFLOW:
+020D EF              315             MOV A, R7
+020E 93              316             MOVC A, @A+DPTR
+020F F8              317             MOV R0, A
+A51 MACRO ASSEMBLER  MAIN                                                                 05/26/2023 08:45:53 PAGE     6
 
-021F C3              322             CLR C
-0220 7F00            323             MOV R7, #0D
-0222                 324     SHOW_MES_ERROR:
-0222 EF              325             MOV A, R7
-0223 93              326             MOVC A, @A+DPTR
-0224 F8              327             MOV R0, A
-0225 317B            328             ACALL TRUYEN
-0227 0F              329             INC R7
-0228 70F8            330             JNZ SHOW_MES_ERROR
-022A 22              331     RET
-                     332     
-022B                 333     NORMAL:
-022B 7F64            334             MOV R7, #100D
-022D C3              335             CLR C
-022E 9F              336             SUBB A, R7
-022F 4022            337             JC MINIMUM100
-0231 EC              338             MOV A, R4
-0232 8FF0            339             MOV B, R7
-0234 84              340             DIV AB
-0235 2430            341             ADD A, #30H
-0237 F8              342             MOV R0, A
-0238 317B            343             ACALL TRUYEN
-023A ACF0            344             MOV R4, B
-023C E5F0            345             MOV A, B
-023E 7F0A            346             MOV R7, #10D
-0240 8FF0            347             MOV B, R7
-0242 84              348             DIV AB
-0243 2430            349             ADD A, #30H
-0245 F8              350             MOV R0, A
-0246 317B            351             ACALL TRUYEN
-0248 E5F0            352             MOV A, B
-024A 2430            353             ADD A, #30H
-024C F8              354             MOV R0, A
-024D 317B            355             ACALL TRUYEN
-024F BD0026          356             CJNE R5, #00H, DECIMAL
-0252 22              357     RET
-                     358     
-0253                 359     MINIMUM100:
-0253 7F0A            360             MOV R7, #10D
-0255 C3              361             CLR C
-0256 EC              362             MOV A, R4
-0257 9F              363             SUBB A, R7
-0258 4014            364             JC MINIMUM10
-025A EC              365             MOV A, R4
-025B 8FF0            366             MOV B, R7
-025D 84              367             DIV AB
-025E 2430            368             ADD A, #30H
-0260 F8              369             MOV R0, A
-0261 317B            370             ACALL TRUYEN
-0263 E5F0            371             MOV A, B
-0265 2430            372             ADD A, #30H
-0267 F8              373             MOV R0, A
-0268 317B            374             ACALL TRUYEN
-026A BD000B          375             CJNE R5, #00H, DECIMAL
-026D 22              376     RET
-                     377     
-026E                 378     MINIMUM10:
-026E EC              379             MOV A, R4
-026F 2430            380             ADD A, #30H
-0271 F8              381             MOV R0, A
-0272 317B            382             ACALL TRUYEN
-0274 BD0001          383             CJNE R5, #00H, DECIMAL
-0277 22              384     RET
-                     385     
-0278                 386     DECIMAL:
-0278 782E            387             MOV R0, #"."
-A51 MACRO ASSEMBLER  MAIN                                                                 05/22/2023 16:34:41 PAGE     7
+0210 317D            318             ACALL TRUYEN
+0212 6003            319             JZ END_SHOW
+0214 0F              320             INC R7
+0215 80F6            321             SJMP SHOW_MES_OVERFLOW
+0217                 322     END_SHOW:
+0217 22              323     RET
+                     324     
+0218                 325     ERROR:
+0218 BB0012          326             CJNE R3, #0D, NORMAL
+021B BA2F0F          327             CJNE R2, #"/", NORMAL
+021E 9002B9          328             MOV DPTR, #MES_ERROR
+0221 C3              329             CLR C
+0222 7F00            330             MOV R7, #0D
+0224                 331     SHOW_MES_ERROR:
+0224 EF              332             MOV A, R7
+0225 93              333             MOVC A, @A+DPTR
+0226 F8              334             MOV R0, A
+0227 317D            335             ACALL TRUYEN
+0229 0F              336             INC R7
+022A 70F8            337             JNZ SHOW_MES_ERROR
+022C 22              338     RET
+                     339     
+022D                 340     NORMAL:
+022D 7F64            341             MOV R7, #100D
+022F C3              342             CLR C
+0230 9F              343             SUBB A, R7
+0231 4022            344             JC MINIMUM100
+0233 EC              345             MOV A, R4
+0234 8FF0            346             MOV B, R7
+0236 84              347             DIV AB
+0237 2430            348             ADD A, #30H
+0239 F8              349             MOV R0, A
+023A 317D            350             ACALL TRUYEN
+023C ACF0            351             MOV R4, B
+023E E5F0            352             MOV A, B
+0240 7F0A            353             MOV R7, #10D
+0242 8FF0            354             MOV B, R7
+0244 84              355             DIV AB
+0245 2430            356             ADD A, #30H
+0247 F8              357             MOV R0, A
+0248 317D            358             ACALL TRUYEN
+024A E5F0            359             MOV A, B
+024C 2430            360             ADD A, #30H
+024E F8              361             MOV R0, A
+024F 317D            362             ACALL TRUYEN
+0251 BD0026          363             CJNE R5, #00H, DECIMAL
+0254 22              364     RET
+                     365     
+0255                 366     MINIMUM100:
+0255 7F0A            367             MOV R7, #10D
+0257 C3              368             CLR C
+0258 EC              369             MOV A, R4
+0259 9F              370             SUBB A, R7
+025A 4014            371             JC MINIMUM10
+025C EC              372             MOV A, R4
+025D 8FF0            373             MOV B, R7
+025F 84              374             DIV AB
+0260 2430            375             ADD A, #30H
+0262 F8              376             MOV R0, A
+0263 317D            377             ACALL TRUYEN
+0265 E5F0            378             MOV A, B
+0267 2430            379             ADD A, #30H
+0269 F8              380             MOV R0, A
+026A 317D            381             ACALL TRUYEN
+026C BD000B          382             CJNE R5, #00H, DECIMAL
+026F 22              383     RET
+A51 MACRO ASSEMBLER  MAIN                                                                 05/26/2023 08:45:53 PAGE     7
 
-027A 317B            388             ACALL TRUYEN
-027C ED              389             MOV A, R5
-027D 75F00A          390             MOV B, #10D
-0280 A4              391             MUL AB
-0281 8BF0            392             MOV B, R3
-0283 84              393             DIV AB
-0284 2430            394             ADD A, #30H
-0286 F8              395             MOV R0, A
-0287 317B            396             ACALL TRUYEN
-0289 22              397     RET
-                     398     
-028A                 399     DELAY1MS:
-028A 758CFC          400             MOV TH0, #0FCH
-028D 758A67          401             MOV TL0, #67H
-0290 D28C            402             SETB TR0
-0292 308DFD          403             JNB TF0, $
-0295 C28D            404             CLR TF0
-0297 C28C            405             CLR TR0
-0299 22              406     RET
-                     407     
-029A 753E02          408     DELAY:  MOV 62, #2              ;APLICAR DELAY DE 0.25s
-029D 753DFA          409     DELAY1: MOV 61, #250
-02A0 753CFA          410     DELAY2: MOV 60, #250    
-02A3 D53CFD          411             DJNZ 60, $
-02A6 D53DF7          412             DJNZ 61, DELAY2
-02A9 D53EF1          413             DJNZ 62, DELAY1
-02AC 22              414             RET
-                     415     
-02AD 4F564552        416     MES_OVERFLOW: DB "OVERFLOW!",0
-02B1 464C4F57                
-02B5 2100                    
-02B7 4552524F        417     MES_ERROR: DB "ERROR", 0
-02BB 5200                    
-                     418     
-                     419     END
-A51 MACRO ASSEMBLER  MAIN                                                                 05/22/2023 16:34:41 PAGE     8
+                     384     
+0270                 385     MINIMUM10:
+0270 EC              386             MOV A, R4
+0271 2430            387             ADD A, #30H
+0273 F8              388             MOV R0, A
+0274 317D            389             ACALL TRUYEN
+0276 BD0001          390             CJNE R5, #00H, DECIMAL
+0279 22              391     RET
+                     392     
+027A                 393     DECIMAL:
+027A 782E            394             MOV R0, #"."
+027C 317D            395             ACALL TRUYEN
+027E ED              396             MOV A, R5
+027F 75F00A          397             MOV B, #10D
+0282 A4              398             MUL AB
+0283 8BF0            399             MOV B, R3
+0285 84              400             DIV AB
+0286 2430            401             ADD A, #30H
+0288 F8              402             MOV R0, A
+0289 317D            403             ACALL TRUYEN
+028B 22              404     RET
+                     405     
+028C                 406     DELAY1MS:
+028C 758CFC          407             MOV TH0, #0FCH
+028F 758A67          408             MOV TL0, #67H
+0292 D28C            409             SETB TR0
+0294 308DFD          410             JNB TF0, $
+0297 C28D            411             CLR TF0
+0299 C28C            412             CLR TR0
+029B 22              413     RET
+                     414     
+029C 753E02          415     DELAY:  MOV 62, #2              ;APLICAR DELAY DE 0.25s
+029F 753DFA          416     DELAY1: MOV 61, #250
+02A2 753CFA          417     DELAY2: MOV 60, #250    
+02A5 D53CFD          418             DJNZ 60, $
+02A8 D53DF7          419             DJNZ 61, DELAY2
+02AB D53EF1          420             DJNZ 62, DELAY1
+02AE 22              421             RET
+                     422     
+02AF 4F564552        423     MES_OVERFLOW: DB "OVERFLOW!",0
+02B3 464C4F57                
+02B7 2100                    
+02B9 4552524F        424     MES_ERROR: DB "ERROR", 0
+02BD 5200                    
+                     425     
+                     426     END
+A51 MACRO ASSEMBLER  MAIN                                                                 05/26/2023 08:45:53 PAGE     8
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -451,76 +462,76 @@ SYMBOL TABLE LISTING
 N A M E                 T Y P E  V A L U E   ATTRIBUTES
 
 B. . . . . . . . . . .  D ADDR   00F0H   A   
-BUTTON_0 . . . . . . .  C ADDR   00A4H   A   
-BUTTON_1 . . . . . . .  C ADDR   00B3H   A   
-BUTTON_2 . . . . . . .  C ADDR   00B8H   A   
-BUTTON_3 . . . . . . .  C ADDR   00BDH   A   
-BUTTON_4 . . . . . . .  C ADDR   00C7H   A   
-BUTTON_5 . . . . . . .  C ADDR   00CCH   A   
-BUTTON_6 . . . . . . .  C ADDR   00D1H   A   
-BUTTON_7 . . . . . . .  C ADDR   00DBH   A   
-BUTTON_8 . . . . . . .  C ADDR   00E0H   A   
-BUTTON_9 . . . . . . .  C ADDR   00E5H   A   
-BUTTON_ADD . . . . . .  C ADDR   00AEH   A   
-BUTTON_DIVIDE. . . . .  C ADDR   00EAH   A   
-BUTTON_EQUAL . . . . .  C ADDR   00A9H   A   
-BUTTON_MUL . . . . . .  C ADDR   00D6H   A   
-BUTTON_ON. . . . . . .  C ADDR   009FH   A   
-BUTTON_SUB . . . . . .  C ADDR   00C2H   A   
-CLICK_0. . . . . . . .  C ADDR   00F4H   A   
-CLICK_1. . . . . . . .  C ADDR   010FH   A   
-CLICK_2. . . . . . . .  C ADDR   0118H   A   
-CLICK_3. . . . . . . .  C ADDR   0121H   A   
-CLICK_4. . . . . . . .  C ADDR   0133H   A   
-CLICK_5. . . . . . . .  C ADDR   013CH   A   
-CLICK_6. . . . . . . .  C ADDR   0145H   A   
-CLICK_7. . . . . . . .  C ADDR   0157H   A   
-CLICK_8. . . . . . . .  C ADDR   0160H   A   
-CLICK_9. . . . . . . .  C ADDR   0169H   A   
-CLICK_ADD. . . . . . .  C ADDR   0106H   A   
-CLICK_DIVIDE . . . . .  C ADDR   0172H   A   
-CLICK_EQUAL. . . . . .  C ADDR   00FDH   A   
-CLICK_MUL. . . . . . .  C ADDR   014EH   A   
-CLICK_ON . . . . . . .  C ADDR   00EFH   A   
-CLICK_SUB. . . . . . .  C ADDR   012AH   A   
-DECIMAL. . . . . . . .  C ADDR   0278H   A   
-DELAY. . . . . . . . .  C ADDR   029AH   A   
-DELAY1 . . . . . . . .  C ADDR   029DH   A   
-DELAY1MS . . . . . . .  C ADDR   028AH   A   
-DELAY2 . . . . . . . .  C ADDR   02A0H   A   
-DIVIDE . . . . . . . .  C ADDR   01FBH   A   
-END_SHOW . . . . . . .  C ADDR   0215H   A   
-ERROR. . . . . . . . .  C ADDR   0216H   A   
-MES_ERROR. . . . . . .  C ADDR   02B7H   A   
-MES_OVERFLOW . . . . .  C ADDR   02ADH   A   
-MINIMUM10. . . . . . .  C ADDR   026EH   A   
-MINIMUM100 . . . . . .  C ADDR   0253H   A   
-MULTI. . . . . . . . .  C ADDR   01E9H   A   
-NORMAL . . . . . . . .  C ADDR   022BH   A   
-OPERATOR . . . . . . .  C ADDR   01C6H   A   
-OVERFLOW . . . . . . .  C ADDR   0205H   A   
+BUTTON_0 . . . . . . .  C ADDR   00A6H   A   
+BUTTON_1 . . . . . . .  C ADDR   00B5H   A   
+BUTTON_2 . . . . . . .  C ADDR   00BAH   A   
+BUTTON_3 . . . . . . .  C ADDR   00BFH   A   
+BUTTON_4 . . . . . . .  C ADDR   00C9H   A   
+BUTTON_5 . . . . . . .  C ADDR   00CEH   A   
+BUTTON_6 . . . . . . .  C ADDR   00D3H   A   
+BUTTON_7 . . . . . . .  C ADDR   00DDH   A   
+BUTTON_8 . . . . . . .  C ADDR   00E2H   A   
+BUTTON_9 . . . . . . .  C ADDR   00E7H   A   
+BUTTON_ADD . . . . . .  C ADDR   00B0H   A   
+BUTTON_DIVIDE. . . . .  C ADDR   00ECH   A   
+BUTTON_EQUAL . . . . .  C ADDR   00ABH   A   
+BUTTON_MUL . . . . . .  C ADDR   00D8H   A   
+BUTTON_ON. . . . . . .  C ADDR   00A1H   A   
+BUTTON_SUB . . . . . .  C ADDR   00C4H   A   
+CLICK_0. . . . . . . .  C ADDR   00F6H   A   
+CLICK_1. . . . . . . .  C ADDR   0111H   A   
+CLICK_2. . . . . . . .  C ADDR   011AH   A   
+CLICK_3. . . . . . . .  C ADDR   0123H   A   
+CLICK_4. . . . . . . .  C ADDR   0135H   A   
+CLICK_5. . . . . . . .  C ADDR   013EH   A   
+CLICK_6. . . . . . . .  C ADDR   0147H   A   
+CLICK_7. . . . . . . .  C ADDR   0159H   A   
+CLICK_8. . . . . . . .  C ADDR   0162H   A   
+CLICK_9. . . . . . . .  C ADDR   016BH   A   
+CLICK_ADD. . . . . . .  C ADDR   0108H   A   
+CLICK_DIVIDE . . . . .  C ADDR   0174H   A   
+CLICK_EQUAL. . . . . .  C ADDR   00FFH   A   
+CLICK_MUL. . . . . . .  C ADDR   0150H   A   
+CLICK_ON . . . . . . .  C ADDR   00F1H   A   
+CLICK_SUB. . . . . . .  C ADDR   012CH   A   
+DECIMAL. . . . . . . .  C ADDR   027AH   A   
+DELAY. . . . . . . . .  C ADDR   029CH   A   
+DELAY1 . . . . . . . .  C ADDR   029FH   A   
+DELAY1MS . . . . . . .  C ADDR   028CH   A   
+DELAY2 . . . . . . . .  C ADDR   02A2H   A   
+DIVIDE . . . . . . . .  C ADDR   01FDH   A   
+END_SHOW . . . . . . .  C ADDR   0217H   A   
+ERROR. . . . . . . . .  C ADDR   0218H   A   
+MES_ERROR. . . . . . .  C ADDR   02B9H   A   
+MES_OVERFLOW . . . . .  C ADDR   02AFH   A   
+MINIMUM10. . . . . . .  C ADDR   0270H   A   
+MINIMUM100 . . . . . .  C ADDR   0255H   A   
+MULTI. . . . . . . . .  C ADDR   01EBH   A   
+NORMAL . . . . . . . .  C ADDR   022DH   A   
+OPERATOR . . . . . . .  C ADDR   01C8H   A   
+OVERFLOW . . . . . . .  C ADDR   0207H   A   
 P1 . . . . . . . . . .  D ADDR   0090H   A   
 P2 . . . . . . . . . .  D ADDR   00A0H   A   
-RESULT . . . . . . . .  C ADDR   01CDH   A   
+RESULT . . . . . . . .  C ADDR   01CFH   A   
 SBUF . . . . . . . . .  D ADDR   0099H   A   
-SCANCOT1 . . . . . . .  C ADDR   007BH   A   
-SCANCOT2 . . . . . . .  C ADDR   0069H   A   
-SCANCOT3 . . . . . . .  C ADDR   0057H   A   
-SCANCOT4 . . . . . . .  C ADDR   008DH   A   
-SCANHANG . . . . . . .  C ADDR   0049H   A   
+SCANCOT1 . . . . . . .  C ADDR   0059H   A   
+SCANCOT2 . . . . . . .  C ADDR   006BH   A   
+SCANCOT3 . . . . . . .  C ADDR   007DH   A   
+SCANCOT4 . . . . . . .  C ADDR   008FH   A   
+SCANHANG . . . . . . .  C ADDR   004BH   A   
 SCON . . . . . . . . .  D ADDR   0098H   A   
 SECONDDIGIT. . . . . .  B ADDR   00A0H.6 A   
-A51 MACRO ASSEMBLER  MAIN                                                                 05/22/2023 16:34:41 PAGE     9
+A51 MACRO ASSEMBLER  MAIN                                                                 05/26/2023 08:45:53 PAGE     9
 
 SECONDNUM. . . . . . .  B ADDR   00A0H.7 A   
 SETUP. . . . . . . . .  C ADDR   0030H   A   
-SHOW_MES_ERROR . . . .  C ADDR   0222H   A   
-SHOW_MES_OVERFLOW. . .  C ADDR   020BH   A   
-STORE_NUM. . . . . . .  C ADDR   0185H   A   
-STORE_NUM2 . . . . . .  C ADDR   01A7H   A   
-STORE_SECONDDIGIT_NUM1  C ADDR   0192H   A   
-STORE_SECONDDIGIT_NUM2  C ADDR   01B1H   A   
-SUB. . . . . . . . . .  C ADDR   01DBH   A   
+SHOW_MES_ERROR . . . .  C ADDR   0224H   A   
+SHOW_MES_OVERFLOW. . .  C ADDR   020DH   A   
+STORE_NUM. . . . . . .  C ADDR   0187H   A   
+STORE_NUM2 . . . . . .  C ADDR   01A9H   A   
+STORE_SECONDDIGIT_NUM1  C ADDR   0194H   A   
+STORE_SECONDDIGIT_NUM2  C ADDR   01B3H   A   
+SUB. . . . . . . . . .  C ADDR   01DDH   A   
 TF0. . . . . . . . . .  B ADDR   0088H.5 A   
 TH0. . . . . . . . . .  D ADDR   008CH   A   
 TH1. . . . . . . . . .  D ADDR   008DH   A   
@@ -529,7 +540,7 @@ TL0. . . . . . . . . .  D ADDR   008AH   A
 TMOD . . . . . . . . .  D ADDR   0089H   A   
 TR0. . . . . . . . . .  B ADDR   0088H.4 A   
 TR1. . . . . . . . . .  B ADDR   0088H.6 A   
-TRUYEN . . . . . . . .  C ADDR   017BH   A   
+TRUYEN . . . . . . . .  C ADDR   017DH   A   
 
 
 REGISTER BANK(S) USED: 0 
