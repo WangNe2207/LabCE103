@@ -3,7 +3,7 @@
 org 100h
 ;==========================================================================================================
 
-;VD: Number1:12345678h + Number2:321E654Dh 
+;VD: Number1:321E654Dh - Number2:12345678h 
 ;de nhap 12345678h e cho nhap lan luot 16bit dau(nhap ban so DECIMAL 5678HEX = 22136DECIMAL)va 16bit sau(nhap ban so DECIMAL 1234HEX = 4660DECIMAL)
 ;tuong tu de nhap 321E654Dh e cho nhap lan luot 16bit dau(nhap ban so DECIMAL 654DHEX = 25933DECIMAL )va 16bit sau(nhap ban so DECIMAL 321EHEX = 12830DECIMAL) 
 
@@ -215,18 +215,18 @@ numbercomplete_2_2:
     mov ax,number_2+2  
  
 ;==========================================================================================================
-;THUC HIEN CONG 2 SO 32 BIT BANG CACH CONG LAN LUOT 16 BIT DAU CUA NUMBER 1 CHO 16 BIT DAU CUA NUMBER 2 
+;THUC HIEN TRU 2 SO 32 BIT BANG CACH TRU LAN LUOT 16 BIT DAU CUA NUMBER 1 CHO 16 BIT DAU CUA NUMBER 2 
 ;VA 16BIT TIEP THEO CUA NUMBER 1 CHO 16BIT TIEP THEO CUA NUMBER 2
     mov ax, number_1 ;Copy 16 bit dau cua number 1 vao ax 
     mov bx, number_2 ;Copy 16 bit dau cua number 2 vao bx
     clc              ;Clear carry
-    add ax, bx       ;Cong ax cho bx
+    sub ax, bx       ;Tru ax cho bx
     mov result, ax   ;Luu ket qua vao 16 bit dau cua result
     mov ax, number_1+2; copy 16bit tiep theo cua number 1 vao ax 
     mov bx, number_2+2; Copy 16bit tiep theo cua number 2 vao bx
-    adc ax, bx ; ax + bx + carry
+    sbb ax, bx ; ax + borrow - bx
     mov result+2, ax ;luu ket qua vao 16bit sau cua result
-    adc dx, 00h ;luu carry vao dx
+    sbb dx, 00h ;luu borrow vao dx
     mov result+4,dx ; luu dx vao 16bit tiep theo 
     
     ;xuat chuoi result
@@ -550,7 +550,7 @@ end main
 
 
 
-;                    EM SE THUC HIEN PHEP CONG 32 BIT 1111 1111H + 2222 2222H = 3333 3333H(858993459D)
-;                    DE NHAP SO 1111 1111H, E THUC HIEN NHAP 2 LAN, 1 LAN 16 BIT LOW(1111H = 4369D), 1 LAN 16 BIT HIGH(1111H = 4369D) BANG SO DECIMAL 
-;                    THUC HIEN TUONG TU VOI KHI NHAP 2222 2222H (2222H = 8738D)
+;                    EM SE THUC HIEN PHEP TRU 32 BIT 3333 3333H + 1111 1111H = 2222 2222H(572662306D)
+;                    DE NHAP SO 3333 3333H, E THUC HIEN NHAP 2 LAN, 1 LAN 16 BIT LOW(3333H = 13107D), 1 LAN 16 BIT HIGH(3333H = 13107D) BANG SO DECIMAL 
+;                    THUC HIEN TUONG TU VOI KHI NHAP 1111 1111H (2222H = 8738D)
  
